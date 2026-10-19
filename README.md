@@ -12,7 +12,6 @@ tests/     по файлу на блок: UnqPtr, ShrdPtr, DynamicArray, MemoryS
            Tests.hpp/Tests.cpp — общие тестовые классы, запуск тестов с проверкой утечек
 scripts/   plot.py — графики по results/results.csv
 results/   results.csv и графики
-.vscode/   настройки IntelliSense (C++20, include/) и задачи сборки
 ```
 
 ## Запуск
