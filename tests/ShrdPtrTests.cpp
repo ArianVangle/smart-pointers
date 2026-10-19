@@ -8,12 +8,15 @@
 static_assert(std::is_convertible_v<ShrdPtr<Derived>, ShrdPtr<Tracked>>);
 static_assert(!std::is_convertible_v<ShrdPtr<Tracked>, ShrdPtr<Derived>>);
 static_assert(!std::is_convertible_v<ShrdPtr<Unrelated>, ShrdPtr<Tracked>>);
+
 static_assert(std::is_assignable_v<ShrdPtr<Tracked>&, ShrdPtr<Derived>>);
 static_assert(!std::is_assignable_v<ShrdPtr<Derived>&, ShrdPtr<Tracked>>);
 static_assert(!std::is_assignable_v<ShrdPtr<Tracked>&, ShrdPtr<Unrelated>>);
+
 static_assert(!std::is_constructible_v<ShrdPtr<int>, int*>);
 static_assert(std::is_constructible_v<ShrdPtr<Tracked>, UnqPtr<Derived>&&>);
 static_assert(!std::is_constructible_v<ShrdPtr<Tracked>, UnqPtr<Tracked>&>);
+
 static_assert(sizeof(ShrdPtr<Tracked>) == 2 * sizeof(void*));
 
 namespace {
