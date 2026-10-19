@@ -5,16 +5,21 @@
 #include "UnqPtr.hpp"
 
 static_assert(!std::is_copy_constructible_v<UnqPtr<int>>);
-static_assert(!std::is_copy_assignable_v<UnqPtr<int>>);
 static_assert(!std::is_copy_constructible_v<UnqPtr<int[]>>);
+
+static_assert(!std::is_copy_assignable_v<UnqPtr<int>>);
 static_assert(!std::is_copy_assignable_v<UnqPtr<int[]>>);
+
 static_assert(std::is_move_constructible_v<UnqPtr<int>>);
 static_assert(std::is_move_assignable_v<UnqPtr<int>>);
+
+static_assert(!std::is_assignable_v<UnqPtr<Derived>&, UnqPtr<Tracked>>);
+
 static_assert(std::is_convertible_v<UnqPtr<Derived>, UnqPtr<Tracked>>);
 static_assert(!std::is_convertible_v<UnqPtr<Tracked>, UnqPtr<Derived>>);
 static_assert(!std::is_convertible_v<UnqPtr<Unrelated>, UnqPtr<Tracked>>);
-static_assert(!std::is_assignable_v<UnqPtr<Derived>&, UnqPtr<Tracked>>);
 static_assert(!std::is_convertible_v<Tracked*, UnqPtr<Tracked>>);
+
 static_assert(!std::is_constructible_v<UnqPtr<Tracked>, Unrelated*>);
 static_assert(!std::is_constructible_v<UnqPtr<Derived>, Tracked*>);
 static_assert(std::is_constructible_v<UnqPtr<Tracked[]>, Tracked*>);
