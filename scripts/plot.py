@@ -96,21 +96,17 @@ def draw_log_chart(data, key, ylabel, title, name):
 
 
 def draw_overhead(data):
-    figure, axes = plt.subplots(1, 2, figsize=(12, 5))
-    for axis, key, title in (
-        (axes[0], "time_ms", "Время относительно обычных указателей"),
-        (axes[1], "memory_kb", "Память относительно обычных указателей"),
-    ):
-        for method in METHODS[1:]:
-            ns = sorted(data[method])
-            ratios = [data[method][n][key] / data["raw"][n][key] for n in ns]
-            plot_line(axis, ns, ratios, method)
-        axis.axhline(1.0, color=COLORS["raw"], linewidth=1.5, linestyle=":",
-                     label="обычный указатель = 1")
-        axis.set_xscale("log")
-        axis.set_ylim(bottom=0)
-        style(axis, "во сколько раз больше", title)
-        axis.legend()
+    figure, axis = plt.subplots(figsize=(10, 5))
+    for method in METHODS[1:]:
+        ns = sorted(data[method])
+        ratios = [data[method][n]["time_ms"] / data["raw"][n]["time_ms"] for n in ns]
+        plot_line(axis, ns, ratios, method)
+    axis.axhline(1.0, color=COLORS["raw"], linewidth=1.5, linestyle=":",
+                 label="обычный указатель = 1")
+    axis.set_xscale("log")
+    axis.set_ylim(bottom=0)
+    style(axis, "во сколько раз медленнее", "Время относительно обычных указателей")
+    axis.legend()
     save(figure, "overhead.png")
 
 
